@@ -35,7 +35,7 @@ const LessonCard = () => {
       links,
     };
     try {
-      const response = await fetch('https://sprintsbyvyompadalia.vercel.app/lesson-cards', {
+      const response = await fetch('https://sprintsbyvyompadalia-rarevyom09.vercel.app/lesson-cards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
