@@ -15,9 +15,9 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  credentials: true,
   origin: 'https://rare-sprints.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
 app.use(express.json());
 app.use(cookieParser()); // Use cookie-parser
