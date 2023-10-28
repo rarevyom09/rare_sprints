@@ -17,7 +17,7 @@ const Header = () => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch("https://sprintsbyvyompadalia-rarevyom09.vercel.app/profile", {
+        const response = await fetch("https://sprintsbyvyompadalia.vercel.app/profile", {
           credentials: "include",
           headers: {
             'Authorization': `Bearer ${token}`,
