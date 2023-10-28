@@ -22,7 +22,7 @@ const MySprint = () => {
   useEffect(() => {
     async function fetchLessonCards() {
       try {
-        const response = await fetch('https://sprintsbyvyompadalia.vercel.app/lesson-cards', {
+        const response = await fetch('https://sprintsbyvyompadalia-rarevyom09.vercel.app/lesson-cards', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
