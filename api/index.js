@@ -16,7 +16,7 @@ const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: 'https://rare-sprints.vercel.app',
+  origin: 'https://rare-sprints-rarevyom09.vercel.app',
   methods: '*'
 }));
 app.use(express.json());
