@@ -17,7 +17,7 @@ const Header = () => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:4000/profile", {
+        const response = await fetch("sprintsbyvyompadalia.vercel.app/profile", {
           credentials: "include",
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -42,7 +42,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:4000/logout', {
+      const response = await fetch('sprintsbyvyompadalia.vercel.app/logout', {
         method: 'POST',
         credentials: 'include',
       });
