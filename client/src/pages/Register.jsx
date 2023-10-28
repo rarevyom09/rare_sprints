@@ -55,7 +55,7 @@ const RegisterPage = () => {
         return;
       }
 
-      const response = await fetch('https://sprintsbyvyompadalia-rarevyom09.vercel.app/register', {
+      const response = await fetch('https://sprintsbyvyompadalia.vercel.app/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
