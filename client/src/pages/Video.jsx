@@ -65,7 +65,7 @@ const Video = () => {
     const editedTitle = editedVideoTitles[url];
   
     try {
-      const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-video-title`, {
+      const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-video-title`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -110,7 +110,7 @@ const Video = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-details`, {
+      const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-details`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -166,7 +166,7 @@ const Video = () => {
       setPopoverOpen(false);
 
       try {
-        const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-note`, {
+        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-note`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -193,7 +193,7 @@ const Video = () => {
       const newVideo = { title: currentTitle, link: currentUrl, note: '', completed: false };
 
       try {
-        const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/add-link`, {
+        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/add-link`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -244,7 +244,7 @@ const Video = () => {
       const confirmed = window.confirm('Are you sure you want to delete this video?');
   
       if (confirmed) {
-        fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/delete-link`, {
+        fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/delete-link`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -283,7 +283,7 @@ const Video = () => {
         if (item.link === url) {
           const updatedItem = { ...item, completed: !item.completed, isMarked: !item.isMarked };
 
-          fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/mark-link`, {
+          fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/mark-link`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -315,7 +315,7 @@ const Video = () => {
     async function fetchLinks() {
       setLoading(true);
       try {
-        const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}`, {
+        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -356,7 +356,7 @@ const Video = () => {
   useEffect(() => {
     async function fetchCardInfo() {
       try {
-        const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/info`, {
+        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/info`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
