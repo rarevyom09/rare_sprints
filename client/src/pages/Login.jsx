@@ -26,7 +26,7 @@ const LoginPage = () => {
     try {
       setLoading(true); // Start loading
 
-      const response = await fetch('sprintsbyvyompadalia.vercel.app/login', {
+      const response = await fetch('https://sprintsbyvyompadalia.vercel.app/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
