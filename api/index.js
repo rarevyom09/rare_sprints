@@ -13,7 +13,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-
+const PORT = process.env.PORT || 4000;
 app.use(cors({
   origin: 'https://rare-sprints.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -401,6 +401,6 @@ app.delete('/lesson-cards/:id/delete-link', verifyToken, async (req, res) => {
   });
   
 //PORT declaration
-app.listen(4000, () => {
-    console.log('Server is running on port 4000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
