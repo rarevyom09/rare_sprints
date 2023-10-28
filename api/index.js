@@ -13,7 +13,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+
 app.use(cors({
   origin: 'https://rare-sprints.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
 });
 
+const PORT = process.env.PORT || 4000;
 
 function verifyToken(req, res, next) {
     const token = req.headers.authorization?.split(' ')[1]; // Check cookies and headers
