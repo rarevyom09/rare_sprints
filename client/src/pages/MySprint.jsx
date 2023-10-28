@@ -22,7 +22,7 @@ const MySprint = () => {
   useEffect(() => {
     async function fetchLessonCards() {
       try {
-        const response = await fetch('sprintsbyvyompadalia.vercel.app/lesson-cards', {
+        const response = await fetch('https://sprintsbyvyompadalia.vercel.app/lesson-cards', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -57,7 +57,7 @@ const MySprint = () => {
 
   const handleDeleteClick = async (cardId) => {
     try {
-      const response = await fetch(`sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}`, {
+      const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
