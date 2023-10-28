@@ -42,7 +42,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('https://sprintsbyvyompadalia-rarevyom09.vercel.app/logout', {
+      const response = await fetch('https://sprintsbyvyompadalia.vercel.app/logout', {
         method: 'POST',
         credentials: 'include',
       });
