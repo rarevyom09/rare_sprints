@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import YouTube from 'react-youtube';
 import getYouTubeID from 'get-youtube-id';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPlus, faSave, faTimes , faInfoCircle, faCaretDown,faCaretUp ,faEllipsisV, faCaretRight, faCaretLeft, faRemove, faNoteSticky, faPause } from '@fortawesome/free-solid-svg-icons';
 import Loading from '../components/Loading';
 import toast, { Toaster } from 'react-hot-toast';
+// import jsPDF from 'jspdf';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import './Video.css';
-
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const cardId = window.location.pathname.split('/').pop();
 
 const YouTubeEmbed = ({ videoUrl }) => {
@@ -46,6 +49,46 @@ const Video = () => {
   const [editedVideoTitles, setEditedVideoTitles] = useState({});
   const [showInfo, setShowInfo] = useState(false);
 
+  const exportToPDF = () => {
+    const content = [];
+    content.push({ text: `sprint(s)_${cardInfo.title}_my_notes`, fontSize: 16, bold: true, margin: [0, 0, 0, 10] });
+  
+    const titleStyle = { fontSize: 14, bold: true, color: 'red' };
+    const linkStyle = { fontSize: 12, color: 'blue', decoration: 'underline' };
+    const noteStyle = { fontSize: 12, color: 'black' };
+    const ribbonStyle={alignment:'center',color:'orange',bold:true};
+    // Iterate through videoItems and add links and notes to the PDF
+    if (Array.isArray(videoItems)) {
+      videoItems.forEach((item) => {
+        const itemContent = [];
+        itemContent.push({ text: `Title: ${item.title}`, fontSize: 20, bold: true ,margin: [0, 20],style:titleStyle});
+        itemContent.push({ text: `Link: ${item.link}`, fontSize: 10,italics:true,margin:[0,10],link: item.link, style: linkStyle  });
+        if (item.note) {
+          itemContent.push({ text: `Note: ${item.note}`, fontSize: 12 ,style:noteStyle});
+        }
+        itemContent.push({
+          text: '\u00A9 2023 Sprint(s) by Vyom Padalia & RARE. All rights reserved.',
+          fontSize: 9,
+          margin: [0, 10],
+          style: ribbonStyle,
+        });        
+        content.push(itemContent);
+      });
+    }
+  
+    const documentDefinition = {
+      content,
+      pageSize: 'A4',
+      pageMargins: [40, 60, 40, 60], // Adjust margins as needed
+    };
+  
+    const pdfDoc = pdfMake.createPdf(documentDefinition);
+    pdfDoc.download(`${cardInfo.title}_sprint_NOTES.pdf`);
+  };
+  
+  
+  
+  
   const showInfoMessage = () => {
     setShowInfo(true);
   };
@@ -65,7 +108,7 @@ const Video = () => {
     const editedTitle = editedVideoTitles[url];
   
     try {
-      const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-video-title`, {
+      const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}/update-video-title`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -110,7 +153,7 @@ const Video = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-details`, {
+      const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}/update-details`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -166,7 +209,7 @@ const Video = () => {
       setPopoverOpen(false);
 
       try {
-        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/update-note`, {
+        const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}/update-note`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -193,7 +236,7 @@ const Video = () => {
       const newVideo = { title: currentTitle, link: currentUrl, note: '', completed: false };
 
       try {
-        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/add-link`, {
+        const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}/add-link`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -244,7 +287,7 @@ const Video = () => {
       const confirmed = window.confirm('Are you sure you want to delete this video?');
   
       if (confirmed) {
-        fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/delete-link`, {
+        fetch(`http://localhost:4000/lesson-cards/${cardId}/delete-link`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -283,7 +326,7 @@ const Video = () => {
         if (item.link === url) {
           const updatedItem = { ...item, completed: !item.completed, isMarked: !item.isMarked };
 
-          fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/mark-link`, {
+          fetch(`http://localhost:4000/lesson-cards/${cardId}/mark-link`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -315,7 +358,7 @@ const Video = () => {
     async function fetchLinks() {
       setLoading(true);
       try {
-        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}`, {
+        const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -356,7 +399,7 @@ const Video = () => {
   useEffect(() => {
     async function fetchCardInfo() {
       try {
-        const response = await fetch(`https://sprintsbyvyompadalia.vercel.app/lesson-cards/${cardId}/info`, {
+        const response = await fetch(`http://localhost:4000/lesson-cards/${cardId}/info`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -420,9 +463,15 @@ const Video = () => {
         >
         {cardInfo.tag}
         </div>
-        <button onClick={saveEdits} className="mt-2 px-2 py-1 bg-black text-white rounded-full">
-          <FontAwesomeIcon icon={faSave}/>
-        </button>
+        <div className="flex justify-between">
+          <button onClick={saveEdits} className="flex items-center justify-center mt-2 px-2 py-1 bg-black text-white rounded-full">
+            <FontAwesomeIcon icon={faSave}  className="flex items-center justify-center mr-1 text-xs"/>Save (Title,Desc,Tags)
+          </button>
+        
+          <button onClick={exportToPDF} className="bg-black text-white px-2 rounded-3xl">
+            Export to PDF
+          </button>
+        </div>
         <hr className="border-1 border-black mt-2" />
         <p className="text-sm font-semibold mb-2">Progress:</p>
         <div className="progress-bar">
@@ -578,6 +627,7 @@ const Video = () => {
           </div>
         </div>
       )}
+      
       <Toaster 
         position="top-center"
       />
