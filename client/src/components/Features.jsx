@@ -13,6 +13,7 @@ const FeaturesSection = () => {
       content:
         'Sprint(s) platform can provide a highly customized experience, allowing users to create sprint(playlist)s that suit their specific learning or entertainment needs. YouTube playlists are limited to YouTube content, whereas your platform can aggregate content from various sources.',
     },
+    
     {
       title: 'No Distraction, get Isolated',
       content:
@@ -24,17 +25,30 @@ const FeaturesSection = () => {
         'Sprint(s) note-taking feature allows users to jot down important points, ideas, and thoughts while watching a video. This goes beyond what YouTube\'s playlist feature offers, which lacks integrated note-taking capabilities.',
     },
     {
+      title: 'Export to PDF',
+      content:
+        'Sprint(s) allows you to export your notes as pdf, which will be generated with respect to your Sprint',
+    },
+    {
       title: 'Progress Tracking',
       content:
         'Sprint(s) platform can offer detailed progress tracking for each video, allowing users to pick up where they left off. YouTube playlists dont offer such detailed progress monitoring.',
     },
     {
-      title: 'Centralized Learning Hub',
+      title: 'Clone / Inspire / Reuse (..coming soon)',
+      content: 'Now you can explore all public Sprint(s), you can clone same into your collection, or you can get inspired, or reuse the same',
+    },
+    {
+      title: 'Collab with Other Creators(..coming soon)',
+      content: 'Have you ever think of it ? Well let\'s keep this as secret for now',
+    },
+    {
+      title: 'Centralized Learning Hub (..coming soon)',
       content:
         'Sprint(s) website can serve as a centralized hub for learning and content consumption, allowing users to manage and track their learning materials in one place. This is especially valuable for educational content.',
     },
     {
-      title: 'Privacy at your comfort',
+      title: 'Privacy at your comfort (..coming soon)',
       content:
         'Now you can choose to make your sprint Public/Private. Power is in your hand',
     },
