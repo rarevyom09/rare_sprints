@@ -19,7 +19,7 @@ const YouTubeEmbed = ({ videoUrl }) => {
     height: '360',
     width: '650',
     playerVars: {
-      autoplay: 0,
+      autoplay: 1,
     }
   };
 
