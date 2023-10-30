@@ -4,6 +4,7 @@ const lessonCardSchema = new mongoose.Schema({
   description: String,
   tag: String,
   isPrivate: Boolean,
+  playlistLink: String,
   links: [
     {
       title: String,
