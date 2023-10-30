@@ -35,6 +35,11 @@ const FeaturesSection = () => {
         'Sprint(s) platform can offer detailed progress tracking for each video, allowing users to pick up where they left off. YouTube playlists dont offer such detailed progress monitoring.',
     },
     {
+      title: 'Embed Youtube playlist directly into your sprint',
+      content:
+        'You can create Sprint(s) by Embeding Youtube playlist by using its link.',
+    },
+    {
       title: 'Clone / Inspire / Reuse (..coming soon)',
       content: 'Now you can explore all public Sprint(s), you can clone same into your collection, or you can get inspired, or reuse the same',
     },
