@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser'); // Add cookie-parser
 const User =require('./models/User');
 const LessonCard = require('./models/lessonCardModel');
 // const Event = require('./models/EventModel');
+const axios = require('axios');
 const cors = require('cors');
 const cloudinary = require('cloudinary').v2;
 const multer = require('multer'); // Import multer
@@ -42,7 +43,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 
 const PORT = process.env.PORT || 4000;
-
+const apiKey = process.env.YT_API_KEY;
 function verifyToken(req, res, next) {
     const token = req.headers.authorization?.split(' ')[1]; // Check cookies and headers
     console.log(token);
@@ -413,7 +414,48 @@ app.delete('/lesson-cards/:id/delete-link', verifyToken, async (req, res) => {
       res.status(500).json({ message: 'Failed to update the note for the link' });
     }
   });
+
+
+// for embeding yt-playlist and extrac all video links & titles
+  app.post('/fetchPlaylistVideos', async (req, res) => {
+    const { playlistLink } = req.body;
   
+    try {
+      const playlistId = getPlaylistId(playlistLink);
+      const apiUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`;
+      let nextPageToken = null;
+      const videoData = [];
+  
+      do {
+        const response = await axios.get(apiUrl + (nextPageToken ? `&pageToken=${nextPageToken}` : ''));
+        const { items, nextPageToken: nextPage } = response.data;
+  
+        items.forEach((item) => {
+          const videoId = item.snippet.resourceId.videoId;
+          const videoTitle = item.snippet.title;
+          const videoLink = `https://www.youtube.com/watch?v=${videoId}`;
+          videoData.push({ title: videoTitle, link: videoLink });
+        });
+  
+        nextPageToken = nextPage;
+      } while (nextPageToken);
+  
+      res.status(200).json(videoData);
+    } catch (error) {
+      console.error('Error fetching playlist videos:', error.message);
+      res.status(500).json({ error: 'Failed to fetch playlist videos' });
+    }
+  });
+  
+  function getPlaylistId(playlistUrl) {
+    const regex = /list=([A-Za-z0-9_\-]+)/;
+    const match = playlistUrl.match(regex);
+    if (match && match[1]) {
+      return match[1];
+    }
+    throw new Error('Invalid playlist URL');
+  }
+
 //PORT declaration
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
