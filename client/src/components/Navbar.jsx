@@ -73,6 +73,11 @@ const Header = () => {
   return (
     <div className={`flex justify-center items-center mt-11 mb-11`}>
       <nav className={`fixed w-1/2 z-20 border-2 border-black rounded-3xl my-3 navbg ${scrolled ? 'w-1/3 border-white' : ''}`}>
+        <img
+                src={require("../images/beta.png")}
+                className={`absolute h-10 w-15 -ml-3 ${scrolled ? 'h-10' : ''}`}
+                alt="Flowbite Logo"
+        />
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/">
             <a href="/" className={`flex items-center ${scrolled ? 'ml-2' : ''}`}>
